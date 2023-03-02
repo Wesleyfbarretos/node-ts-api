@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.printersRouter = void 0;
+const express_1 = require("express");
+const _3d_printers_controller_1 = require("../use-cases/3d-printers-use-case/3d-printers-controller");
+const _3d_printers_service_1 = require("../use-cases/3d-printers-use-case/3d-printers-service");
+exports.printersRouter = (0, express_1.Router)();
+const printersService = new _3d_printers_service_1.PrintersService("");
+const printersController = new _3d_printers_controller_1.PrintersController(printersService);
+exports.printersRouter.get("", printersController.findAll);
+// printersRouter.get();

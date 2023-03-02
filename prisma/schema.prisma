@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Printers_3D {
+  id         String   @id @default(uuid())
+  name       String
+  ip_adress  String   @unique
+  type       String
+  online     Boolean
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt()
+}
+
+model Furnaces {
+  id              String   @id @default(uuid())
+  name            String
+  ip_adress       String   @unique
+  type            String
+  max_temperature String
+  online          Boolean
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt()
+}
