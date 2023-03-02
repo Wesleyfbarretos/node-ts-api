@@ -72,7 +72,7 @@ describe("Furnace Integration Tests", () => {
       online: false,
     } as CreateOrUpdateFurnaceInputDTO);
     expect(response.body.message).toBe(
-      MessagesHelper.furnaceService.INFORM_MAX_TEMPERATURE
+      MessagesHelper.furnacesService.INFORM_MAX_TEMPERATURE
     );
     expect(response.statusCode).toBe(StatusCodes.BAD_REQUEST);
   });

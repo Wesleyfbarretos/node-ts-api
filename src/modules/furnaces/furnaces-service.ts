@@ -22,16 +22,16 @@ export class FurnacesService {
     const { ip_adress: ipAdress, max_temperature, name, online, type } = data;
 
     if (!ipAdress)
-      throw new BadRequestError(MessagesHelper.furnaceService.INFORM_IP);
+      throw new BadRequestError(MessagesHelper.furnacesService.INFORM_IP);
     if (!name)
-      throw new BadRequestError(MessagesHelper.furnaceService.INFORM_NAME);
+      throw new BadRequestError(MessagesHelper.furnacesService.INFORM_NAME);
     if (!type)
-      throw new BadRequestError(MessagesHelper.furnaceService.INFORM_TYPE);
+      throw new BadRequestError(MessagesHelper.furnacesService.INFORM_TYPE);
     if (online == undefined)
-      throw new BadRequestError(MessagesHelper.furnaceService.INFORM_ONLINE);
+      throw new BadRequestError(MessagesHelper.furnacesService.INFORM_ONLINE);
     if (!max_temperature)
       throw new BadRequestError(
-        MessagesHelper.furnaceService.INFORM_MAX_TEMPERATURE
+        MessagesHelper.furnacesService.INFORM_MAX_TEMPERATURE
       );
 
     const result = await this.prisma.furnaces.findUnique({
@@ -40,7 +40,7 @@ export class FurnacesService {
 
     if (result)
       throw new BadRequestError(
-        MessagesHelper.furnaceService.FURNACE_ALREADY_EXIST
+        MessagesHelper.furnacesService.FURNACE_ALREADY_EXIST
       );
 
     return this.prisma.furnaces.create({
@@ -73,7 +73,7 @@ export class FurnacesService {
     });
 
     if (!result)
-      throw new NotFoundError(MessagesHelper.furnaceService.FURNACE_NOT_EXIST);
+      throw new NotFoundError(MessagesHelper.furnacesService.FURNACE_NOT_EXIST);
 
     return result;
   }

@@ -3,6 +3,7 @@ import {
   BadRequestError,
   NotFoundError,
 } from "../../helpers/api-errors-helper";
+import { MessagesHelper } from "../../helpers/messages-helper";
 import {
   CreateOrUpdatePrinterInputDTO,
   CreateOrUpdatePrinterOutputDTO,
@@ -18,21 +19,24 @@ export class PrintersService {
   async create(
     data: CreateOrUpdatePrinterInputDTO
   ): Promise<CreateOrUpdatePrinterOutputDTO> {
-    const { ip_adress: ipAdress, name, online, type } = data;
+    const { ip_adress, name, online, type } = data;
 
-    if (!ipAdress) throw new BadRequestError("please inform the ip_adress");
-    if (!name) throw new BadRequestError("please inform the name");
-    if (!type) throw new BadRequestError("please inform the type");
+    if (!ip_adress)
+      throw new BadRequestError(MessagesHelper.printersService.INFORM_IP);
+    if (!name)
+      throw new BadRequestError(MessagesHelper.printersService.INFORM_NAME);
+    if (!type)
+      throw new BadRequestError(MessagesHelper.printersService.INFORM_TYPE);
     if (online == undefined)
-      throw new BadRequestError("please inform the online status");
+      throw new BadRequestError(MessagesHelper.printersService.INFORM_ONLINE);
 
     const result = await this.prisma.printers_3D.findUnique({
-      where: { ip_adress: ipAdress },
+      where: { ip_adress },
     });
 
     if (result)
       throw new BadRequestError(
-        "there is another printer with the same ip in our bank, try again."
+        MessagesHelper.printersService.PRINTER_ALREADY_EXIST
       );
 
     return this.prisma.printers_3D.create({
@@ -40,7 +44,7 @@ export class PrintersService {
         name,
         online,
         type,
-        ip_adress: ipAdress,
+        ip_adress,
       },
     });
   }
@@ -62,7 +66,8 @@ export class PrintersService {
       where: { ip_adress },
     });
 
-    if (!result) throw new NotFoundError("Printer not exist");
+    if (!result)
+      throw new NotFoundError(MessagesHelper.printersService.PRINTER_NOT_EXIST);
 
     return result;
   }

@@ -14,7 +14,7 @@ export class FurnacesController {
     const result = await this.furnacesService.create(body);
 
     res.status(StatusCodes.CREATED).json({
-      message: MessagesHelper.furnaceController.CREATED,
+      message: MessagesHelper.furnacesController.CREATED,
       furnace: result,
     });
   };
@@ -35,7 +35,7 @@ export class FurnacesController {
     const { id } = req.params;
     const result = await this.furnacesService.update(body, id);
     res.json({
-      message: MessagesHelper.furnaceController.UPDATED,
+      message: MessagesHelper.furnacesController.UPDATED,
       updatedFurnace: result,
     });
   };

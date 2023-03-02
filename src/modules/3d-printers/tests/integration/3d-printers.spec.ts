@@ -2,6 +2,7 @@ import { randomInt, randomUUID } from "crypto";
 import { Express } from "express";
 import { StatusCodes } from "http-status-codes";
 import request, { SuperTest, Test } from "supertest";
+import { MessagesHelper } from "../../../../helpers/messages-helper";
 import { createServer } from "../../../../server";
 import { CreateOrUpdatePrinterInputDTO } from "../../dtos/create-printer-dto";
 
@@ -98,7 +99,9 @@ describe("Printers Integration Tests", () => {
       name: "hello",
       type: "vida",
     } as CreateOrUpdatePrinterInputDTO);
-    expect(response.body.message).toBe("please inform the online status");
+    expect(response.body.message).toBe(
+      MessagesHelper.printersService.INFORM_ONLINE
+    );
     expect(response.statusCode).toBe(StatusCodes.BAD_REQUEST);
   });
 });
